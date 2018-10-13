@@ -21,9 +21,7 @@ export function createUser(name, images) {
                 createPerson(Globals.personGroupId, name)
             );
             if (personId) {
-                console.log("personId ", personId);
                 for (const image of images) {
-                    console.log(image);
                     const persistentFaceId = await dispatch(
                         addPersonFace(Globals.personGroupId, personId, image)
                     );
@@ -33,7 +31,7 @@ export function createUser(name, images) {
                 dispatch(getTrainingStatus());
             }
         } catch (error) {
-            console.log(error);
+            alert(error);
             // TODO Dispatch delete of group
             dispatch(createUserError());
         }

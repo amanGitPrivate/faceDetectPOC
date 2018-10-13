@@ -3,7 +3,10 @@ import {
     AUTHENTICATED_PERSON,
     AUTHENTICATION_END,
     AUTHENTICATION_START,
-    LOGOUT
+    LOGOUT,
+    CHECK_LOGIN,
+    LOGIN,
+    SIGNUP
 } from "./../actions/user/authentication";
 import {
     USER_CREATE_START,
@@ -18,7 +21,8 @@ const defaultState = {
     isAuthenticating: false,
     isCreating: false,
     isRegistered: false,
-    person: undefined
+    person: undefined,
+    showLoginSignUpOption: true
 };
 
 export default function(state = defaultState, action) {
@@ -28,6 +32,7 @@ export default function(state = defaultState, action) {
                 ...defaultState,
                 isAuthenticated: true,
                 isRegistered: true,
+                showLoginSignUpOption: false,
                 person: action.person
             };
         }
@@ -35,6 +40,20 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 isAuthenticating: false
+            };
+        }
+        case LOGIN: {
+            return {
+                ...state,
+                showLoginSignUpOption: false,
+                isRegistered: true
+            };
+        }
+        case SIGNUP: {
+            return {
+                ...state,
+                showLoginSignUpOption: false,
+                isRegistered: false
             };
         }
         case AUTHENTICATION_START: {
@@ -50,6 +69,13 @@ export default function(state = defaultState, action) {
             };
         }
         case LOGOUT: {
+            return {
+                ...defaultState,
+                isRegistered: false,
+                isAuthenticated: false
+            };
+        }
+        case CHECK_LOGIN: {
             return {
                 ...defaultState,
                 isRegistered: true

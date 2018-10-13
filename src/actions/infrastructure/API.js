@@ -6,7 +6,8 @@ function performRequest(request) {
         const options = {
             baseURL: Globals.urls.apiBase,
             headers: {
-                "Ocp-Apim-Subscription-Key": Globals.subscriptionKey.faceAPI
+                "Ocp-Apim-Subscription-Key": Globals.subscriptionKey.faceAPI,
+                'Content-Type': 'application/json',
             },
             timeout: Globals.timeout
         };
@@ -17,6 +18,7 @@ function performRequest(request) {
 
 export function post(path, params) {
     return performRequest(requestObject => {
+
         return requestObject.post(path, params);
     });
 }

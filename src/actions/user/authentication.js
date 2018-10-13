@@ -6,6 +6,9 @@ export const AUTHENTICATED_PERSON = "authentication/AUTHENTICATED_PERSON";
 export const AUTHENTICATION_START = "authentication/AUTHENTICATION_START";
 export const AUTHENTICATION_END = "authentication/AUTHENTICATION_END";
 export const LOGOUT = "authentication/LOGOUT";
+export const LOGIN = "authentication/LOGIN";
+export const CHECK_LOGIN = "authentication/CHECK_LOGIN";
+export const SIGNUP = "authentication/SIGNUP";
 
 export function login(imageCaptured) {
     return async function(dispatch) {
@@ -52,6 +55,12 @@ function authenticationEnd() {
     };
 }
 
+export function gotoLogin() {
+  return {
+    type: CHECK_LOGIN
+  }
+}
+
 function authenticatedPerson(person) {
     return {
         person: person,
@@ -65,4 +74,20 @@ export function logout() {
             type: LOGOUT
         });
     };
+}
+
+export function signUp() {
+    return function(dispatch) {
+        dispatch({
+            type: SIGNUP
+        });
+    };
+}
+
+export function showLoginScreen() {
+  return function(dispatch) {
+      dispatch({
+          type: LOGIN
+      });
+  };
 }

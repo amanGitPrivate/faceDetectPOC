@@ -15,6 +15,8 @@ import _ from "lodash";
 import { recognition } from "./../../actions/api";
 import { login, logout } from "./../../actions/user/authentication";
 import RegisterScreen from "./../RegisterScreen/RegisterScreen";
+import UserDetailScreen from "./../UserDetailScreen/UserDetailScreen";
+import OptionScreen from "./../OptionScreen/OptionScreen";
 import Spinner from "./../../components/Spinner";
 
 const styles = StyleSheet.create({
@@ -70,10 +72,15 @@ class MainScreen extends Component {
     render() {
         console.log("render");
         console.log(this.props);
+        if(this.props.user.showLoginSignUpOption === true) {
+              return <OptionScreen />;
+        }
         if (this.props.user.isRegistered === false) {
             return <RegisterScreen />;
         }
-
+        if (this.props.user.isAuthenticated === true) {
+          return <UserDetailScreen usernName = {this.props.user.person}/>
+        }
         const imagePath = this.state.imagePath;
         return (
             <View style={styles.container}>
@@ -87,20 +94,7 @@ class MainScreen extends Component {
                     style={styles.cameraView}
                     type={"front"}
                 />
-                {this.props.user.isAuthenticated && (
-                    <View
-                        style={{
-                            backgroundColor: "white",
-                            borderRadius: 5,
-                            padding: 3,
-                            position: "absolute",
-                            top: 8,
-                            left: 8
-                        }}
-                    >
-                        <Text>{this.props.user.person.name}</Text>
-                    </View>
-                )}
+
                 <Modal
                     animationType={"fade"}
                     onRequestClose={() => {

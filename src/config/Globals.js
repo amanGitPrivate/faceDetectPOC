@@ -1,7 +1,7 @@
 export default (Globals = {
-    personGroupId: "facerecog",
+    personGroupId: 2,
     subscriptionKey: {
-        faceAPI: "YOUR_FACE_API_KEY_HERE"
+        faceAPI: "bfb1d94350d047b6a81796be6bba10ad"
     },
     timeout: 30000,
     urls: {

@@ -9,6 +9,7 @@ import {
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { createUser } from "./../../actions/user/creation";
+import { showLoginScreen } from "./../../actions/user/authentication";
 import Spinner from "./../../components/Spinner";
 
 class RegisterScreen extends Component {
@@ -20,8 +21,11 @@ class RegisterScreen extends Component {
         };
     }
 
+    login = () => {
+      this.props.showLoginScreen();
+    }
+
     render() {
-        console.log(this.props.personGroup);
         return (
             <View style={{ flex: 1, marginTop: 40 }}>
                 <Text
@@ -50,7 +54,7 @@ class RegisterScreen extends Component {
                             cancelButtonTitle: "Cancel",
                             mediaType: "photo",
                             noData: true,
-                            takePhotoButtonTile: "Take picture"
+                            takePhotoButtonTile: "Register Image"
                         };
                         ImagePicker.launchCamera(options, response => {
                             console.log(response);
@@ -77,11 +81,8 @@ class RegisterScreen extends Component {
                         marginTop: 10
                     }}
                 >
-                    <Text>Take picture</Text>
+                    <Text>Capturer Image</Text>
                 </TouchableOpacity>
-                <Text style={{ textAlign: "center", margin: 10 }}>
-                    {this.state.userImages.length} picture(s) taken
-                </Text>
                 <TouchableOpacity
                     onPress={() => {
                         this.props.createUser(
@@ -102,6 +103,24 @@ class RegisterScreen extends Component {
                 >
                     <Text>Create user</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={this.login}
+                    style={{
+                        alignSelf: "center",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderColor: "black",
+                        width: 100,
+                        height: 40,
+                        borderWidth: 1,
+                        marginTop: 10
+                    }}
+                >
+                    <Text>Login</Text>
+                </TouchableOpacity>
+                <Text style={{ textAlign: "center", margin: 10 }}>
+                    {this.state.userImages.length} picture(s) taken
+                </Text>
                 <Spinner
                     visible={this.props.user.isCreating}
                     backgroundColor={"white"}
@@ -119,5 +138,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    createUser
+    createUser,
+    showLoginScreen
 })(RegisterScreen);

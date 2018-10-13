@@ -1,4 +1,4 @@
-import { get, post } from "./../infrastructure/API";
+import { get, post, put } from "./../infrastructure/API";
 import RNFetchBlob from "react-native-fetch-blob";
 import Globals from "./../../config/Globals";
 
@@ -19,7 +19,6 @@ export function addPersonFace(personGroupId, personId, faceImagePath) {
         const method = "POST";
         const path = `/persongroups/${personGroupId}/persons/${personId}/persistedFaces`;
         const url = Globals.urls.apiBase + path;
-        console.log(url);
         const response = await RNFetchBlob.fetch(
             method,
             url,
@@ -29,7 +28,7 @@ export function addPersonFace(personGroupId, personId, faceImagePath) {
             },
             RNFetchBlob.wrap(faceImagePath)
         );
-        console.log(response);
+        alert(JSON.stringify(response));
         if (
             response &&
             response.respInfo &&
@@ -38,6 +37,7 @@ export function addPersonFace(personGroupId, personId, faceImagePath) {
             response.data
         ) {
             console.log(response.data);
+            alert(response.data)
             return JSON.parse(response.data).persistedFaceId;
         }
     };
@@ -68,7 +68,6 @@ export function createPerson(personGroupId, name) {
             userData: "Created through FacialRecognitionApp"
         };
         const response = await dispatch(post(path, body));
-        console.log(response);
         if (
             response &&
             response.status === 200 &&
